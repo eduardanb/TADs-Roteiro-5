@@ -13,21 +13,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestaListaEncadeada {
-
+	
 	private ListaEncadeadaIF<Integer> listaEnc = null;
-
+	
 	@BeforeEach
 	public void inicializar() {
 		listaEnc = new ListaEncadeadaImpl<Integer>();
 	}
-
+	
 	@Test
 	public void imprimeEmOrdemTest() {
 		assertEquals("", listaEnc.imprimeEmOrdem());
 		listaEnc.insert(2);
 		assertEquals("2", listaEnc.imprimeEmOrdem());
-		/** Correção no teste: ajustado o tamanho do array esperado para refletir corretamente o número de elementos na lista. */
-		assertArrayEquals(new Integer[] {2}, listaEnc.toArray(Integer.class));
+		assertArrayEquals(new Integer[2], listaEnc.toArray(Integer.class));
 		listaEnc.insert(10);
 		assertEquals("2, 10", listaEnc.imprimeEmOrdem());
 		listaEnc.insert(5);
@@ -41,7 +40,7 @@ public class TestaListaEncadeada {
 		listaEnc.insert(4);
 		assertEquals("2, 10, 5, 9, 1, 3, 4", listaEnc.imprimeEmOrdem());
 	}
-
+	
 	@Test
 	public void toArrayTest() {
 		assertArrayEquals(new Integer[0], listaEnc.toArray(Integer.class));
@@ -61,7 +60,7 @@ public class TestaListaEncadeada {
 		listaEnc.insert(4);
 		assertArrayEquals(new Integer[] {2,10, 5, 9, 1, 3, 4}, listaEnc.toArray(Integer.class));
 	}
-
+	
 	@Test
 	public void imprimeInversoTest() {
 		assertEquals("", listaEnc.imprimeInverso());
@@ -80,77 +79,46 @@ public class TestaListaEncadeada {
 		listaEnc.insert(4);
 		assertEquals("4, 3, 1, 9, 5, 10, 2", listaEnc.imprimeInverso());
 	}
-
+	
 	@Test
 	public void insertsearchTeste() {
-		// Teste com lista vazia
 		assertNull(listaEnc.search(20));
-
-		// Insere 20 e verifica
 		listaEnc.insert(20);
-		NodoListaEncadeada<Integer> node20 = listaEnc.search(20);
-		assertNotNull(node20);
-		assertEquals(Integer.valueOf(20), node20.getChave());
-		assertSame(listaEnc.getCauda(), node20.getProximo());  // Deve apontar para cauda
-
-		// Insere 15 e verifica
+		assertEquals(new NodoListaEncadeada<Integer>(20), listaEnc.search(20));
+		assertNull(listaEnc.search(20).getProximo());
 		listaEnc.insert(15);
-		NodoListaEncadeada<Integer> node15 = listaEnc.search(15);
-		assertNotNull(node15);
-		assertEquals(Integer.valueOf(15), node15.getChave());
-		assertSame(node15, node20.getProximo());  // 20 -> 15
-		assertSame(listaEnc.getCauda(), node15.getProximo());  // 15 -> cauda
-
-		// Insere 3 e verifica
+		assertEquals(new NodoListaEncadeada<Integer>(15), listaEnc.search(15));
+		assertEquals(new NodoListaEncadeada<Integer>(15),listaEnc.search(20).getProximo());
+		assertNull(listaEnc.search(15).getProximo());
 		listaEnc.insert(3);
-		NodoListaEncadeada<Integer> node3 = listaEnc.search(3);
-		assertNotNull(node3);
-		assertEquals(Integer.valueOf(3), node3.getChave());
-		assertSame(node3, node15.getProximo());  // 15 -> 3
-		assertSame(listaEnc.getCauda(), node3.getProximo());  // 3 -> cauda
-
-		// Insere 90 e verifica
+		assertEquals(new NodoListaEncadeada<Integer>(3), listaEnc.search(3));
+		assertEquals(new NodoListaEncadeada<Integer>(3),listaEnc.search(15).getProximo());
+		assertNull(listaEnc.search(3).getProximo());
 		listaEnc.insert(90);
-		NodoListaEncadeada<Integer> node90 = listaEnc.search(90);
-		assertNotNull(node90);
-		assertEquals(Integer.valueOf(90), node90.getChave());
-		assertSame(node90, node3.getProximo());  // 3 -> 90
-		assertSame(listaEnc.getCauda(), node90.getProximo());  // 90 -> cauda
-
-		// Insere 100 e verifica
+		assertEquals(new NodoListaEncadeada<Integer>(90), listaEnc.search(90));
+		assertEquals(new NodoListaEncadeada<Integer>(90),listaEnc.search(3).getProximo());
+		assertNull(listaEnc.search(90).getProximo());
 		listaEnc.insert(100);
-		NodoListaEncadeada<Integer> node100 = listaEnc.search(100);
-		assertNotNull(node100);
-		assertEquals(Integer.valueOf(100), node100.getChave());
-		assertSame(node100, node90.getProximo());  // 90 -> 100
-		assertSame(listaEnc.getCauda(), node100.getProximo());  // 100 -> cauda
-
-		// Insere 73 e verifica
+		assertEquals(new NodoListaEncadeada<Integer>(100), listaEnc.search(100));
+		assertEquals(new NodoListaEncadeada<Integer>(100),listaEnc.search(90).getProximo());
+		assertNull(listaEnc.search(100).getProximo());
 		listaEnc.insert(73);
-		NodoListaEncadeada<Integer> node73 = listaEnc.search(73);
-		assertNotNull(node73);
-		assertEquals(Integer.valueOf(73), node73.getChave());
-		assertSame(node73, node100.getProximo());  // 100 -> 73
-		assertSame(listaEnc.getCauda(), node73.getProximo());  // 73 -> cauda
-
-		// Insere 29 e verifica
+		assertEquals(new NodoListaEncadeada<Integer>(73), listaEnc.search(73));
+		assertEquals(new NodoListaEncadeada<Integer>(73),listaEnc.search(100).getProximo());
+		assertNull(listaEnc.search(73).getProximo());
 		listaEnc.insert(29);
-		NodoListaEncadeada<Integer> node29 = listaEnc.search(29);
-		assertNotNull(node29);
-		assertEquals(Integer.valueOf(29), node29.getChave());
-		assertSame(node29, node73.getProximo());  // 73 -> 29
-		assertSame(listaEnc.getCauda(), node29.getProximo());  // 29 -> cauda
-
-		// Verifica elemento não existente
+		assertEquals(new NodoListaEncadeada<Integer>(29), listaEnc.search(29));
+		assertEquals(new NodoListaEncadeada<Integer>(29),listaEnc.search(73).getProximo());
+		assertNull(listaEnc.search(29).getProximo());
 		assertNull(listaEnc.search(230));
 	}
-
+	
 	@Test
-	public void insertRemoverTeste() throws ElementoNaoEncontradoException, ListaVaziaException {
+	public void insertRemoverTeste() throws ElementoNaoEncontradoException {
 		assertThrows(ListaVaziaException.class, () -> {
 			listaEnc.remove(38);
 		});
-
+		
 		listaEnc.insert(206);
 		listaEnc.insert(152);
 		listaEnc.insert(38);
@@ -162,19 +130,19 @@ public class TestaListaEncadeada {
 		assertEquals(new NodoListaEncadeada<Integer>(91), listaEnc.remove(91));
 		assertEquals("206, 152, 38, 18, 93, 69", listaEnc.imprimeEmOrdem());
 		assertArrayEquals(new Integer[] {206, 152, 38, 18, 93, 69}, listaEnc.toArray(Integer.class));
-
+		
 		assertEquals(new NodoListaEncadeada<Integer>(18), listaEnc.remove(18));
 		assertEquals("206, 152, 38, 93, 69", listaEnc.imprimeEmOrdem());
 		assertArrayEquals(new Integer[] {206, 152, 38, 93, 69}, listaEnc.toArray(Integer.class));
-
+		
 		assertEquals(new NodoListaEncadeada<Integer>(206), listaEnc.remove(206));
 		assertEquals("152, 38, 93, 69", listaEnc.imprimeEmOrdem());
 		assertArrayEquals(new Integer[] {152, 38, 93, 69}, listaEnc.toArray(Integer.class));
-
+		
 		assertEquals(new NodoListaEncadeada<Integer>(152), listaEnc.remove(152));
 		assertEquals("38, 93, 69", listaEnc.imprimeEmOrdem());
 		assertArrayEquals(new Integer[] {38, 93, 69}, listaEnc.toArray(Integer.class));
-
+		
 		assertEquals(new NodoListaEncadeada<Integer>(93), listaEnc.remove(93));
 		assertEquals("38, 69", listaEnc.imprimeEmOrdem());
 		assertArrayEquals(new Integer[] {38, 69}, listaEnc.toArray(Integer.class));
@@ -188,7 +156,7 @@ public class TestaListaEncadeada {
 		assertArrayEquals(new Integer[0], listaEnc.toArray(Integer.class)); // Array vazio em vez de null
 		assertTrue(listaEnc.isEmpty());
 	}
-
+	
 	@Test
 	public void sucessorTeste() throws ElementoNaoEncontradoException {
 		listaEnc.insert(206);
@@ -204,9 +172,9 @@ public class TestaListaEncadeada {
 		assertEquals(new NodoListaEncadeada<Integer>(78), listaEnc.sucessor(11));
 		assertEquals(new NodoListaEncadeada<Integer>(43), listaEnc.sucessor(78));
 		assertEquals(new NodoListaEncadeada<Integer>(59), listaEnc.sucessor(43));
-
+		
 	}
-
+	
 	@Test
 	public void predecessorTeste() throws ElementoNaoEncontradoException {
 		listaEnc.insert(206);
@@ -222,11 +190,11 @@ public class TestaListaEncadeada {
 		assertEquals(new NodoListaEncadeada<Integer>(58), listaEnc.predecessor(11));
 		assertEquals(new NodoListaEncadeada<Integer>(122), listaEnc.predecessor(58));
 		assertEquals(new NodoListaEncadeada<Integer>(206), listaEnc.predecessor(122));
-
+		
 	}
-
+	
 	@Test
-	public void isEmptyTest() throws ElementoNaoEncontradoException, ListaVaziaException {
+	public void isEmptyTest() throws ElementoNaoEncontradoException {
 		assertTrue(listaEnc.isEmpty());
 		listaEnc.insert(206);
 		listaEnc.insert(122);
@@ -246,9 +214,9 @@ public class TestaListaEncadeada {
 		listaEnc.remove(59);
 		assertTrue(listaEnc.isEmpty());
 	}
-
+	
 	@Test
-	public void sizeRemoveCabecaTest() throws ElementoNaoEncontradoException, ListaVaziaException {
+	public void sizeRemoveCabecaTest() throws ElementoNaoEncontradoException {
 		assertEquals(0, listaEnc.size());
 		listaEnc.insert(58);
 		assertEquals(1, listaEnc.size());
@@ -311,11 +279,11 @@ public class TestaListaEncadeada {
 		listaEnc.insert(10);
 
 		assertEquals("null, 10", listaEnc.imprimeEmOrdem());
-		assertNull(listaEnc.search(null));
+		assertNull(listaEnc.search(null).getChave());
 	}
 
 	@Test
-	public void tamanhoLista_DeveSerConsistente() throws ElementoNaoEncontradoException, ListaVaziaException {
+	public void tamanhoLista_DeveSerConsistente() throws ElementoNaoEncontradoException {
 		assertEquals(0, listaEnc.size());
 		listaEnc.insert(10);
 		assertEquals(1, listaEnc.size());
