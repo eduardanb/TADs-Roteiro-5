@@ -101,7 +101,7 @@ public class TestaListaDuplamenteEncadeada {
 	}
 	
 	@Test
-	public void insertRemoverTeste() throws ElementoNaoEncontradoException {
+	public void insertRemoverTeste() throws ElementoNaoEncontradoException, ListaVaziaException {
 		assertThrows(ListaVaziaException.class, () -> {
 			listaDuplaEnc.remove(38);
 		});
@@ -185,7 +185,7 @@ public class TestaListaDuplamenteEncadeada {
 	}
 	
 	@Test
-	public void isEmptyTest() throws ElementoNaoEncontradoException {
+	public void isEmptyTest() throws ElementoNaoEncontradoException, ListaVaziaException {
 		assertTrue(listaDuplaEnc.isEmpty());
 		listaDuplaEnc.insert(206);
 		listaDuplaEnc.insert(122);
@@ -207,7 +207,7 @@ public class TestaListaDuplamenteEncadeada {
 	}
 	
 	@Test
-	public void sizeRemoveCabecaTest() throws ElementoNaoEncontradoException {
+	public void sizeRemoveCabecaTest() throws ElementoNaoEncontradoException, ListaVaziaException {
 		assertEquals(0, listaDuplaEnc.size());
 		listaDuplaEnc.insert(58);
 		assertEquals(1, listaDuplaEnc.size());
@@ -241,7 +241,7 @@ public class TestaListaDuplamenteEncadeada {
 	}
 	
 	@Test
-	public void removeUltimoTest() throws ElementoNaoEncontradoException {
+	public void removeUltimoTest() throws ElementoNaoEncontradoException, ListaVaziaException {
 		listaDuplaEnc.insert(33);
 		listaDuplaEnc.insert(15);
 		listaDuplaEnc.insert(78);
@@ -259,7 +259,7 @@ public class TestaListaDuplamenteEncadeada {
 	}
 	
 	@Test
-	public void removePrimeiro() throws ElementoNaoEncontradoException {
+	public void removePrimeiro() throws ElementoNaoEncontradoException, ListaVaziaException {
 		listaDuplaEnc.insert(33);
 		listaDuplaEnc.insert(15);
 		listaDuplaEnc.insert(78);
@@ -300,7 +300,7 @@ public class TestaListaDuplamenteEncadeada {
 
 	// Testes para encadeamento duplo
 	@Test
-	public void encadeamentoDuplo_AposInsercoesERemocoes_DeveManterConsistencia() throws ElementoNaoEncontradoException {
+	public void encadeamentoDuplo_AposInsercoesERemocoes_DeveManterConsistencia() throws ElementoNaoEncontradoException, ListaVaziaException {
 		listaDuplaEnc.insert(10);
 		listaDuplaEnc.insert(20);
 		listaDuplaEnc.insert(30);
@@ -328,7 +328,7 @@ public class TestaListaDuplamenteEncadeada {
 
 	// Testes para casos especiais
 	@Test
-	public void removeUltimo_QuandoUnicoElemento_DeveEsvaziarLista() {
+	public void removeUltimo_QuandoUnicoElemento_DeveEsvaziarLista() throws ListaVaziaException {
 		listaDuplaEnc.insert(10);
 		listaDuplaEnc.removeUltimo();
 		assertTrue(listaDuplaEnc.isEmpty());
@@ -336,7 +336,7 @@ public class TestaListaDuplamenteEncadeada {
 	}
 
 	@Test
-	public void removePrimeiro_QuandoUnicoElemento_DeveEsvaziarLista() {
+	public void removePrimeiro_QuandoUnicoElemento_DeveEsvaziarLista() throws ListaVaziaException {
 		listaDuplaEnc.insert(10);
 		listaDuplaEnc.removePrimeiro();
 		assertTrue(listaDuplaEnc.isEmpty());

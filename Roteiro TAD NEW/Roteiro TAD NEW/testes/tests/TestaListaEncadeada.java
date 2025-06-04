@@ -114,7 +114,7 @@ public class TestaListaEncadeada {
 	}
 	
 	@Test
-	public void insertRemoverTeste() throws ElementoNaoEncontradoException {
+	public void insertRemoverTeste() throws ElementoNaoEncontradoException, ListaVaziaException {
 		assertThrows(ListaVaziaException.class, () -> {
 			listaEnc.remove(38);
 		});
@@ -194,7 +194,7 @@ public class TestaListaEncadeada {
 	}
 	
 	@Test
-	public void isEmptyTest() throws ElementoNaoEncontradoException {
+	public void isEmptyTest() throws ElementoNaoEncontradoException, ListaVaziaException {
 		assertTrue(listaEnc.isEmpty());
 		listaEnc.insert(206);
 		listaEnc.insert(122);
@@ -216,7 +216,7 @@ public class TestaListaEncadeada {
 	}
 	
 	@Test
-	public void sizeRemoveCabecaTest() throws ElementoNaoEncontradoException {
+	public void sizeRemoveCabecaTest() throws ElementoNaoEncontradoException, ListaVaziaException {
 		assertEquals(0, listaEnc.size());
 		listaEnc.insert(58);
 		assertEquals(1, listaEnc.size());
@@ -283,7 +283,7 @@ public class TestaListaEncadeada {
 	}
 
 	@Test
-	public void tamanhoLista_DeveSerConsistente() throws ElementoNaoEncontradoException {
+	public void tamanhoLista_DeveSerConsistente() throws ElementoNaoEncontradoException, ListaVaziaException {
 		assertEquals(0, listaEnc.size());
 		listaEnc.insert(10);
 		assertEquals(1, listaEnc.size());
