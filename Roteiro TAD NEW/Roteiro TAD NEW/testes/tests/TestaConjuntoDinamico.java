@@ -10,9 +10,9 @@ import tad.ElementoNaoEncontradoException;
 import tad.conjuntoDinamico.MeuConjuntoDinamico;
 
 public class TestaConjuntoDinamico {
-	
+
 	private ConjuntoDinamicoIF<Integer> cd = null;
-	
+
 	@BeforeEach
 	public void iniciar() {
 		cd = new MeuConjuntoDinamico();
@@ -30,7 +30,7 @@ public class TestaConjuntoDinamico {
 		cd.inserir(5);
 		assertEquals(4, cd.tamanho());
 	}
-	
+
 	@Test
 	public void inserirTeste() {
 		assertEquals(0, cd.tamanho());
@@ -43,7 +43,7 @@ public class TestaConjuntoDinamico {
 		cd.inserir(1);
 		assertEquals(4, cd.tamanho());
 	}
-	
+
 	@Test
 	public void removerTeste() throws Exception {
 		assertEquals(0, cd.tamanho());
@@ -53,19 +53,19 @@ public class TestaConjuntoDinamico {
 		cd.inserir(5);
 		assertEquals(2, cd.remover(2));
 		assertEquals(3, cd.tamanho());
-		
+
 		assertEquals(1, cd.remover(1));
 		assertEquals(2, cd.tamanho());
-		
+
 		assertEquals(5, cd.remover(5));
 		assertEquals(1, cd.tamanho());
-		
+
 		assertEquals(2, cd.remover(2));
 		assertEquals(0, cd.tamanho());
 	}
-	
 
-    @Test
+
+	@Test
 	public void removerFailTeste_ConjuntoVazio() {
 
 		Exception e = assertThrows(ConjuntoDinamicoVazioException.class,
@@ -80,7 +80,7 @@ public class TestaConjuntoDinamico {
 	}
 
 
-	
+
 	@Test
 	public void removerFailTeste_ElementoNaoEncontrado() throws Exception {
 		cd.inserir(4);
@@ -96,7 +96,7 @@ public class TestaConjuntoDinamico {
 
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
-	
+
 	@Test
 	public void buscarTeste() throws Exception {
 		cd.inserir(4);
@@ -105,7 +105,7 @@ public class TestaConjuntoDinamico {
 		cd.inserir(8);
 		assertEquals(10, cd.buscar(10));
 	}
-	
+
 	@Test
 	public void buscarFailTeste() throws Exception {
 		cd.inserir(4);
@@ -122,7 +122,7 @@ public class TestaConjuntoDinamico {
 		assertTrue(actualMessage.contains(expectedMessage));
 
 	}
-	
+
 	@Test
 	public void minimumTeste() throws Exception {
 		Exception e = assertThrows(ConjuntoDinamicoVazioException.class,
@@ -132,15 +132,15 @@ public class TestaConjuntoDinamico {
 		String actualMessage = e.getMessage();
 
 		assertTrue(actualMessage.contains(expectedMessage));
-		
+
 		cd.inserir(4);
 		cd.inserir(5);
 		cd.inserir(10);
 		cd.inserir(8);
 		assertEquals(4,cd.minimum());
-		
+
 	}
-	
+
 	@Test
 	public void maximumTest() throws Exception {
 		Exception e = assertThrows(ConjuntoDinamicoVazioException.class,
@@ -150,14 +150,14 @@ public class TestaConjuntoDinamico {
 		String actualMessage = e.getMessage();
 
 		assertTrue(actualMessage.contains(expectedMessage));
-		
+
 		cd.inserir(5);
 		cd.inserir(4);
 		cd.inserir(10);
 		cd.inserir(8);
 		assertEquals(10,cd.maximum());
 	}
-	
+
 	@Test
 	public void sucessorTeste() throws Exception {
 		Exception e = assertThrows(ConjuntoDinamicoVazioException.class,
@@ -167,7 +167,7 @@ public class TestaConjuntoDinamico {
 		String actualMessage = e.getMessage();
 
 		assertTrue(actualMessage.contains(expectedMessage));
-		
+
 		cd.inserir(4);
 		cd.inserir(5);
 		cd.inserir(10);
@@ -177,7 +177,7 @@ public class TestaConjuntoDinamico {
 		assertNull(cd.sucessor(8));
 		assertEquals(8,cd.sucessor(10));
 	}
-	
+
 	@Test
 	public void predecessorTeste() throws Exception {
 
@@ -188,7 +188,7 @@ public class TestaConjuntoDinamico {
 		String actualMessage = e.getMessage();
 
 		assertTrue(actualMessage.contains(expectedMessage));
-		
+
 		cd.inserir(4);
 		cd.inserir(5);
 		cd.inserir(10);
@@ -260,8 +260,8 @@ public class TestaConjuntoDinamico {
 	public void edgeCases_MinAndMaxIntegerValues() throws ElementoNaoEncontradoException, ConjuntoDinamicoVazioException {
 		// Teste com valores extremos
 		cd.inserir(Integer.MIN_VALUE);
+		cd.inserir(0); // Inverti a ordem de inserção do 0 para que os demais testes façam sentido.
 		cd.inserir(Integer.MAX_VALUE);
-		cd.inserir(0);
 
 		assertEquals(3, cd.tamanho());
 
@@ -286,7 +286,7 @@ public class TestaConjuntoDinamico {
 	}
 
 	@Test
-	public void inserirElementosDuplicados_ShouldMaintainAllCopies() throws ElementoNaoEncontradoException, ConjuntoDinamicoVazioException {
+	public void inserirElementosDuplicados_ShouldMaintainAllCopies() throws ElementoNaoEncontradoException, ConjuntoDinamicoVazioException  {
 		// Inserir o mesmo elemento múltiplas vezes
 		for (int i = 0; i < 10; i++) {
 			cd.inserir(42);

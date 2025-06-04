@@ -1,47 +1,83 @@
 package tad.listasEncadeadas;
 
+import tad.ElementoNaoEncontradoException;
 import tad.fila.FilaCheiaException;
 import tad.fila.FilaIF;
 import tad.fila.FilaVaziaException;
 
 public class FilaListaEncadeada implements FilaIF<NodoListaEncadeada<Integer>> {
-	
-	private ListaEncadeadaIF<Integer> fila;
+
+	private ListaEncadeadaImpl<Integer> fila;
+	private int limite;
+
+	public FilaListaEncadeada(int limite) {
+		this.fila = new ListaEncadeadaImpl<>();
+		this.limite = limite;
+	}
+
+	public FilaListaEncadeada() {
+		this.fila = new ListaEncadeadaImpl<>();
+		this.limite = Integer.MAX_VALUE;
+	}
 
 	@Override
 	public void enfileirar(NodoListaEncadeada<Integer> item) throws FilaCheiaException {
-		// TODO Auto-generated method stub
-		
+		if (isFull()) {
+			throw new FilaCheiaException();
+		}
+		fila.insert(item.getChave());
 	}
 
 	@Override
 	public NodoListaEncadeada<Integer> desenfileirar() throws FilaVaziaException {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			throw new FilaVaziaException();
+		}
+
+		try {
+			NodoListaEncadeada<Integer> primeiro = fila.cabeca.getProximo();
+			fila.remove(primeiro.getChave());
+			return primeiro;
+		} catch (ListaVaziaException e) {
+			throw new FilaVaziaException();
+		} catch (ElementoNaoEncontradoException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
-	public NodoListaEncadeada<Integer> verificarCauda() {
-		// TODO Auto-generated method stub
-		return null;
+	public NodoListaEncadeada<Integer> verificarCauda() throws FilaVaziaException {
+		if (isEmpty()) {
+			throw new FilaVaziaException();
+		}
+
+		NodoListaEncadeada<Integer> atual = fila.cabeca.getProximo();
+		NodoListaEncadeada<Integer> ultimo = atual;
+
+		while (atual != null && atual != fila.getCauda()) {
+			ultimo = atual;
+			atual = atual.getProximo();
+		}
+
+		return ultimo;
 	}
 
 	@Override
 	public NodoListaEncadeada<Integer> verificarCabeca() {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			return null;
+		}
+		return fila.cabeca.getProximo();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return fila.isEmpty();
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		return false;
+		return fila.size() >= limite;
 	}
 
 	@Override
@@ -49,4 +85,8 @@ public class FilaListaEncadeada implements FilaIF<NodoListaEncadeada<Integer>> {
 		return 0;
 	}
 
+	@Override
+	public int tamanho() {
+		return 0;
+	}
 }

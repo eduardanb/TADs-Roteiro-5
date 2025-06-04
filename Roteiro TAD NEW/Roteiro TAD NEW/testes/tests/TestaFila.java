@@ -1,6 +1,9 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
+//import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,9 +66,9 @@ public class TestaFila {
 	public void desenfileirarTest() {
 		fila = new MinhaFila(5);
 		Exception e = assertThrows(FilaVaziaException.class,
-                () -> {fila.desenfileirar();});
+				() -> {fila.desenfileirar();});
 
-        String expectedMessage = "fila vazia!";
+		String expectedMessage = "fila vazia!";
 		String actualMessage = e.getMessage();
 
 		assertTrue(actualMessage.contains(expectedMessage));
@@ -82,21 +85,21 @@ public class TestaFila {
 			fila.enfileirar(2);
 			assertEquals(3, fila.verificarCabeca());
 			assertEquals(3, fila.desenfileirar());
-			assertEquals(3, fila.verificarCabeca());
-	
+			assertEquals(5, fila.verificarCabeca());
+
 			fila.enfileirar(15);
-			
+
 			assertEquals(5, fila.desenfileirar());
 			assertEquals(7, fila.verificarCabeca());
-	
+
 			fila.enfileirar(20);
-			
+
 			assertEquals(7, fila.desenfileirar());
 			assertEquals(4, fila.verificarCabeca());
-	
+
 			assertEquals(4, fila.desenfileirar());
 			assertEquals(2, fila.verificarCabeca());
-	
+
 			assertEquals(2, fila.desenfileirar());
 		} catch(FilaCheiaException fce) {
 			fail("fila cheia exception lançado indevidamente");
@@ -120,7 +123,7 @@ public class TestaFila {
 			fail("fila vazia exception lançado indevidamente");
 		}
 	}
-	
+
 	@Test
 	public void filaVaziaTest() {
 		assertThrows(FilaVaziaException.class, () -> {
@@ -131,9 +134,9 @@ public class TestaFila {
 			fila.desenfileirar();
 			fila.desenfileirar();
 			fila.desenfileirar();
-	    });
+		});
 	}
-	
+
 	@Test
 	public void filaCheiaTest() {
 		assertThrows(FilaCheiaException.class, () -> {
@@ -148,9 +151,9 @@ public class TestaFila {
 			fila.enfileirar(10);
 			fila.enfileirar(10);
 			fila.enfileirar(11);
-	    });
+		});
 	}
-	
+
 	// Neste teste a fila tem que estourar o tamanho depois de 999
 	@Test
 	public void enfileirarEstouroExceptionTest() {
